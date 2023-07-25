@@ -25,18 +25,26 @@ end
 
 class Student < Person
   attr_reader :classroom
-  
+
   def initialize(classroom, id, age, name = 'Unknown', parent_permission: true)
     super(id, age, name, parent_permission: parent_permission)
     @classroom = classroom
   end
 
   def play_hooky
-    return "¯\(ツ)/¯"
+    '¯(ツ)/¯'
   end
 end
 
-ahmed = Student.new("class1", "id01", 17, "otmane", parent_permission: false)
+class Teacher < Person
+  attr_reader :specialization
 
-puts ahmed.can_use_services?
-puts ahmed.play_hooky
+  def initialize(specialization, id, age, name = 'Unknown', parent_permission: true)
+    super(id, age, name, parent_permission: parent_permission)
+    @specialization = specialization
+  end
+
+  def can_use_services?
+    true
+  end
+end
