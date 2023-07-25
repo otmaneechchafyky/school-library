@@ -1,49 +1,11 @@
-class Person
-  attr_accessor :name, :age
-  attr_reader :id
+# main.rb
+require_relative 'person'
+require_relative 'student'
+require_relative 'teacher'
 
-  def initialize(id, age, name = 'Unknown', parent_permission: true)
-    @id = id
-    @name = name
-    @age = age
-    @parent_permission = parent_permission
-  end
+# Now you can use the Person, Student, and Teacher classes in this file
+student = Student.new('Math101', 'S123', 10, 'John Doe', parent_permission: false)
+teacher = Teacher.new('Math', 'T456', 10, 'Jane Smith', parent_permission: false)
 
-  # Name and age setters
-
-  def can_use_services?
-    of_age? || @parent_permission
-  end
-
-  private
-
-  def of_age?
-    @age >= 18
-  end
-end
-
-class Student < Person
-  attr_reader :classroom
-
-  def initialize(classroom, id, age, name = 'Unknown', parent_permission: true)
-    super(id, age, name, parent_permission: parent_permission)
-    @classroom = classroom
-  end
-
-  def play_hooky
-    '¯(ツ)/¯'
-  end
-end
-
-class Teacher < Person
-  attr_reader :specialization
-
-  def initialize(specialization, id, age, name = 'Unknown', parent_permission: true)
-    super(id, age, name, parent_permission: parent_permission)
-    @specialization = specialization
-  end
-
-  def can_use_services?
-    true
-  end
-end
+p student.can_use_services?
+p teacher.can_use_services?
