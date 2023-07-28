@@ -38,7 +38,6 @@ class App
     @people.push(person)
     puts 'The person created successfully'
   end
-  
 
   def create_a_book(title, author)
     book = Book.new(title, author)
@@ -68,7 +67,9 @@ Date: '
     id = gets.chomp.to_i
     puts 'Rentals: '
     @rentals.each do |rental|
-      puts "Date: \"#{rental.date}\", Book: \"#{rental.book.title}\" wroten by: #{rental.book.author}" if rental.person.id == id
+      if rental.person.id == id
+        puts "Date: \"#{rental.date}\", Book: \"#{rental.book.title}\" wroten by: #{rental.book.author}"
+      end
     end
   end
 
@@ -84,15 +85,12 @@ Date: '
     classroom = Classroom.new(label)
     Student.new(classroom, age, name, parent_permission: parent_permission)
   end
-  
-  
 
   def create_a_teacher(name, age)
     print 'Specialization: '
     specialization = gets.chomp
     Teacher.new(specialization, age, name)
-  end  
-  
+  end
 
   def list_of_books
     @books.each_with_index do |book, index|
