@@ -12,15 +12,23 @@ class App
   end
 
   def list_all_books
-    book_info = @books.map do |book|
-      "Title: \"#{book.title}\", Author: \"#{book.author}\""
+    if @books.length == 0
+      puts "There is no books yet, add some please!"
+    else
+      book_info = @books.map do |book|
+        "Title: \"#{book.title}\", Author: \"#{book.author}\""
+      end
     end
     puts book_info
   end
 
   def list_all_people
-    people_info = @people.map do |person|
-      "[#{person.type}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
+    if @people.length == 0
+      puts "There is no people yet, please add a person!"
+    else 
+      people_info = @people.map do |person|
+        "[#{person.type}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
+      end
     end
     puts people_info
   end
@@ -66,9 +74,13 @@ Date: '
     puts 'ID: '
     id = gets.chomp.to_i
     puts 'Rentals: '
-    @rentals.each do |rental|
-      if rental.person.id == id
-        puts "Date: \"#{rental.date}\", Book: \"#{rental.book.title}\" wroten by: #{rental.book.author}"
+    if @rentals.length == 0
+      puts "There is no rentals for #{id}"
+    else
+      @rentals.each do |rental|
+        if rental.person.id == id
+          puts "Date: \"#{rental.date}\", Book: \"#{rental.book.title}\" wroten by: #{rental.book.author}"
+        end
       end
     end
   end

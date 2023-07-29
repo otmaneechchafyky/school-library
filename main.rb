@@ -75,8 +75,11 @@ def switch(app, number)
       number = create_a_rental(app)
     when '6'
       number = list_all_rentals(app)
-    else
+    when '7'
       puts 'Thank you for using this app!'
+      break
+    else
+      puts 'Invalid input'
       break
     end
   end
