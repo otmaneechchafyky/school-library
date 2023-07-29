@@ -12,8 +12,8 @@ class App
   end
 
   def list_all_books
-    if @books.length == 0
-      puts "There is no books yet, add some please!"
+    if @books.empty?
+      puts 'There is no books yet, add some please!'
     else
       book_info = @books.map do |book|
         "Title: \"#{book.title}\", Author: \"#{book.author}\""
@@ -23,9 +23,9 @@ class App
   end
 
   def list_all_people
-    if @people.length == 0
-      puts "There is no people yet, please add a person!"
-    else 
+    if @people.empty?
+      puts 'There is no people yet, please add a person!'
+    else
       people_info = @people.map do |person|
         "[#{person.type}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
       end
@@ -74,7 +74,7 @@ Date: '
     puts 'ID: '
     id = gets.chomp.to_i
     puts 'Rentals: '
-    if @rentals.length == 0
+    if @rentals.empty?
       puts "There is no rentals for #{id}"
     else
       @rentals.each do |rental|
