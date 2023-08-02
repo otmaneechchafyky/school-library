@@ -1,14 +1,18 @@
+require 'json'
 require_relative 'teacher'
 require_relative 'student'
 require_relative 'classroom'
 require_relative 'rental'
 require_relative 'book'
+require_relative 'preserve_data'
 
 class App
   def initialize
     @people = []
     @books = []
     @rentals = []
+    @data_preserver = Save.new
+    load_data_from_files
   end
 
   def list_all_books
@@ -44,12 +48,14 @@ class App
       puts 'Incorrect input!'
     end
     @people.push(person)
+    @data_preserver.save_people(@people)
     puts 'The person created successfully'
   end
 
   def create_a_book(title, author)
     book = Book.new(title, author)
     @books.push(book)
+    @data_preserver.save_books(@books)
     puts 'The Book created successfully'
   end
 
@@ -67,6 +73,7 @@ class App
 
     rental = Rental.new(date, @books[index_book], @people[index_person])
     @rentals.push(rental)
+    @data_preserver.save_rentals(@books, @people)
     puts 'The Rental created successfully'
   end
 
@@ -111,5 +118,11 @@ class App
     @people.each_with_index do |person, index|
       puts "#{index}) [#{person.type}], Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
     end
+  end
+
+  def load_data_from_files
+    @people = @data_preserver.read_people
+    @books = @data_preserver.read_books
+    @rentals = @data_preserver.read_rentals(@books, @people)
   end
 end
