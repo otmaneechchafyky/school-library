@@ -1,0 +1,12 @@
+[
+  {
+    "date": "22/2013",
+    "book": "Book 1",
+    "person": 1
+  },
+  {
+    "date": "22/2023",
+    "book": "Book 2",
+    "person": 0
+  }
+]
