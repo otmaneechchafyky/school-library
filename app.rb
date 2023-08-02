@@ -5,7 +5,7 @@ require_relative 'classroom'
 require_relative 'rental'
 require_relative 'book'
 require_relative 'preserve_data'
-
+#sadasd
 class App
   def initialize
     @people = []
