@@ -31,4 +31,17 @@ class Save
 
     File.write('./json_files/rentals.json', JSON.pretty_generate(rentals_data))
   end
+
+  class Read
+    def read_books
+      file_path = './json_files/books.json'
+      return [] unless File.exist?(file_path)
+      books_data = JSON.parse(File.read(file_path))
+      books_list = []
+      books_data['Books'].each do |book_data|
+        books_list << Book.new(book_data['title'], book_data['author'])
+      end
+      books_list
+    end
+  end
 end
