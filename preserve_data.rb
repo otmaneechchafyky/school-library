@@ -43,5 +43,27 @@ class Save
       end
       books_list
     end
+    def read_people
+      file_path = './json_files/people.json'
+      return [] unless File.exist?(file_path)
+      people_data = JSON.parse(File.read(file_path))
+      people_list = []
+      classrooms = {}
+      # Create and store classrooms first
+      people_data['People'].each do |person_data|
+        if person_data['type'] == 'Student'
+          classroom_label = person_data['classroom_label']
+          classrooms[classroom_label] ||= Classroom.new(classroom_label)
+        end
+        if person_data['type'] == 'Student'
+          classroom_label = person_data['classroom_label']
+          classroom = classrooms[classroom_label]
+          people_list << Student.new(classroom, person_data['age'], person_data['name'],
+                                     parent_permission: person_data['parent_permission'])
+          else
+          people_list << Teacher.new(person_data['specialization'], person_data['age'], person_data['name'])
+        end
+    end  
   end
+
 end
