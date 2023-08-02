@@ -19,4 +19,16 @@ class Save
                                                                                 end
                                                                               end }))
   end
+
+  def save_rentals(books, people)
+    rentals_data = []
+    books.each do |book|
+      book.rentals.each do |rental|
+        person_index = people.index(rental.person)
+        rentals_data << { 'date' => rental.date, 'book' => book.title, 'person' => person_index }
+      end
+    end
+
+    File.write('./json_files/rentals.json', JSON.pretty_generate(rentals_data))
+  end
 end
