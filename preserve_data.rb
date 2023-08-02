@@ -69,4 +69,24 @@ class Save
   people_list
 end
 
+def read_rentals(books, people)
+  file_path = './json_files/rentals.json'
+  return [] unless File.exist?(file_path)
+  rentals_data = JSON.parse(File.read(file_path))
+  rentals_list = []
+  rentals_data.each do |rental_data|
+    book_title = rental_data['book']
+    person_index = rental_data['person']
+    book = books.find { |b| b.title == book_title }
+    person = people[person_index] if person_index
+    if book && person
+      rental_instance = Rental.new(rental_data['date'], book, person)
+      rentals_list << rental_instance
+    else
+      puts 'Error: Book or person not found'
+    end
+  end
+  rentals_list
+end
+
 end
