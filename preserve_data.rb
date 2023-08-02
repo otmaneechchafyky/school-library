@@ -65,5 +65,8 @@ class Save
         end
     end  
   end
+  # Create students and teachers with proper classroom objects
+  people_list
+end
 
 end
