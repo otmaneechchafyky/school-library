@@ -36,6 +36,7 @@ class Save
     def read_books
       file_path = './json_files/books.json'
       return [] unless File.exist?(file_path)
+
       books_data = JSON.parse(File.read(file_path))
       books_list = []
       books_data['Books'].each do |book_data|
@@ -43,9 +44,11 @@ class Save
       end
       books_list
     end
+
     def read_people
       file_path = './json_files/people.json'
       return [] unless File.exist?(file_path)
+
       people_data = JSON.parse(File.read(file_path))
       people_list = []
       classrooms = {}
@@ -60,33 +63,33 @@ class Save
           classroom = classrooms[classroom_label]
           people_list << Student.new(classroom, person_data['age'], person_data['name'],
                                      parent_permission: person_data['parent_permission'])
-          else
+        else
           people_list << Teacher.new(person_data['specialization'], person_data['age'], person_data['name'])
         end
-    end  
-  end
-  # Create students and teachers with proper classroom objects
-  people_list
-end
-
-def read_rentals(books, people)
-  file_path = './json_files/rentals.json'
-  return [] unless File.exist?(file_path)
-  rentals_data = JSON.parse(File.read(file_path))
-  rentals_list = []
-  rentals_data.each do |rental_data|
-    book_title = rental_data['book']
-    person_index = rental_data['person']
-    book = books.find { |b| b.title == book_title }
-    person = people[person_index] if person_index
-    if book && person
-      rental_instance = Rental.new(rental_data['date'], book, person)
-      rentals_list << rental_instance
-    else
-      puts 'Error: Book or person not found'
+      end
     end
+    # Create students and teachers with proper classroom objects
+    people_list
   end
-  rentals_list
-end
 
+  def read_rentals(books, people)
+    file_path = './json_files/rentals.json'
+    return [] unless File.exist?(file_path)
+
+    rentals_data = JSON.parse(File.read(file_path))
+    rentals_list = []
+    rentals_data.each do |rental_data|
+      book_title = rental_data['book']
+      person_index = rental_data['person']
+      book = books.find { |b| b.title == book_title }
+      person = people[person_index] if person_index
+      if book && person
+        rental_instance = Rental.new(rental_data['date'], book, person)
+        rentals_list << rental_instance
+      else
+        puts 'Error: Book or person not found'
+      end
+    end
+    rentals_list
+  end
 end
